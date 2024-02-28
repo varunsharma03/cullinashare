@@ -8,10 +8,13 @@ const Id = () => {
     const [data,setdata]=useState([])
     const[star,setstar]=useState([]);
     useEffect(() => {
-        const id = window.location.href.split('/').pop();
     
         const fetchRecipe = async () => {
           try {
+            if(typeof window===undefined)
+            {
+                const id = window.location.href.split('/').pop();
+            }
             const response = await axios.get(`http://localhost:3000/api/recipes/singlerecipe?_id=${id}`);
             console.log(response.data);
     
