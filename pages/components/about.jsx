@@ -12,7 +12,7 @@ const About = () => {
         </p>
         <p className="text-xl text-gray-700 mb-6">
           Our mission is to create a space for food lovers to connect, share recipes, and celebrate the joy
-          of cooking. Whether you're a seasoned chef or a home cook, youll find something delightful here.
+          of cooking. Whether youre a seasoned chef or a home cook, youll find something delightful here.
         </p>
       </div>
     </div>
