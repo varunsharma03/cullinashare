@@ -10,13 +10,7 @@ const Id = () => {
     useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        let id;
-        
-        if (typeof window !== 'undefined') {
-          // Use window.location only on the client side
-          id = window.location.href.split('/').pop();
-        }
-
+        let id=localStorage.getItem("recipeID");
         const response = await axios.get(`http://localhost:3000/api/recipes/singlerecipe?_id=${id}`);
         console.log(response.data);
 
