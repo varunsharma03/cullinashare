@@ -8,27 +8,29 @@ const Id = () => {
     const [data,setdata]=useState([])
     const[star,setstar]=useState([]);
     useEffect(() => {
-    
-        const fetchRecipe = async () => {
-          try {
-            if(typeof window===undefined)
-            {
-                const id = window.location.href.split('/').pop();
-            }
-            const response = await axios.get(`http://localhost:3000/api/recipes/singlerecipe?_id=${id}`);
-            console.log(response.data);
-    
-            setdata([response.data]);
-    
-            // Create an array with the specified number of empty elements for star rating
-            setStar(Array(response.data?.rating || 0).fill(''));
-          } catch (error) {
-            console.error('Error fetching recipe:', error);
-          }
-        };
-    
-        fetchRecipe();
-      }, []);
+    const fetchRecipe = async () => {
+      try {
+        let id;
+        
+        if (typeof window !== 'undefined') {
+          // Use window.location only on the client side
+          id = window.location.href.split('/').pop();
+        }
+
+        const response = await axios.get(`http://localhost:3000/api/recipes/singlerecipe?_id=${id}`);
+        console.log(response.data);
+
+        setdata([response.data]);
+
+        // Create an array with the specified number of empty elements for star rating
+        setstar(Array(response.data?.rating || 0).fill(''));
+      } catch (error) {
+        console.error('Error fetching recipe:', error);
+      }
+    };
+
+    fetchRecipe();
+  }, []);
     return (
     <div className='w-[100vw]'>
         {
