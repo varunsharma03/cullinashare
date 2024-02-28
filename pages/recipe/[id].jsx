@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import axios from "axios"
 
 const Id = () => {
-    let id =(window.location.href).split('/').pop();
     const [data,setdata]=useState([])
     const[star,setstar]=useState([]);
     useEffect(() => {
