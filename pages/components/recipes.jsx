@@ -253,6 +253,7 @@ const Recipes = () => {
                         <button
                           className="text-blue-600 "
                           onClick={() => {
+                            localStorage.setItem("recipeID",e._id);
                             router.push(`/recipe/${e._id}`);
                           }}
                         >
