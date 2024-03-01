@@ -10,7 +10,7 @@ const Id = () => {
     const fetchRecipe = async () => {
       try {
         let id=localStorage.getItem("recipeID");
-        const response = await axios.get(`http://localhost:3000/api/recipes/singlerecipe?_id=${id}`);
+        const response = await axios.get(`api/recipes/singlerecipe?_id=${id}`);
         console.log(response.data);
 
         setdata([response.data]);
