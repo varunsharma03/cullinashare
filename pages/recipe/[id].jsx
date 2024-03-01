@@ -4,22 +4,28 @@ import { useEffect } from 'react';
 import axios from "axios"
 
 const Id = () => {
-    let id =(window.location.href).split('/').pop();
     const [data,setdata]=useState([])
     const[star,setstar]=useState([]);
-    async function fetch()
-    {
-        let url= `http://localhost:3000/api/recipes/singlerecipe?_id=${id}`
-        const response=await axios.get(url);
-        console.log(response.data)
-        setdata([response.data])
-        console.log(response.data?.rating)
-        setstar( Array(response.data?.rating).fill(""))
-    
-    }
-    useEffect(()=>{
-        fetch()
-    },[])
+  
+    useEffect(() => {
+    const fetchRecipe = async () => {
+      try {
+        let id=localStorage.getItem("recipeID");
+
+        const response = await axios.get(`http://localhost:3000/api/recipes/singlerecipe?_id=${id}`);
+        console.log(response.data);
+
+        setdata([response.data]);
+
+        // Create an array with the specified number of empty elements for star rating
+        setstar(Array(response.data?.rating || 0).fill(''));
+      } catch (error) {
+        console.error('Error fetching recipe:', error);
+      }
+    };
+
+    fetchRecipe();
+  }, []);
     return (
     <div className='w-[100vw]'>
         {
