@@ -28,13 +28,12 @@ const Postrecipe = () => {
   {
 
     name.toUpperCase();
-    const response= axios.post("http://localhost:3000/api/recipes",{
+    const response= axios.post("api/recipes",{
       ingredients,name,categorie,nationality,detail,url,by
     });
     if(response)
     {
       router.push('/')
-      // console.log(response)
     }
   }
 
