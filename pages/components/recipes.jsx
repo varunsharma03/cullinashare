@@ -40,7 +40,7 @@ const Recipes = () => {
 
   const fetchdata = async () => {
     try {
-      let url = 'http://localhost:3000/api/recipes';
+      let url = 'api/recipes';
       const response = await axios.get(url);
       if (response.data.recipes) {
         setdata(response.data.recipes);
