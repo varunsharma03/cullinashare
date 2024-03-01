@@ -6,18 +6,10 @@ import axios from "axios"
 const Id = () => {
     const [data,setdata]=useState([])
     const[star,setstar]=useState([]);
-<<<<<<< HEAD
-  
-=======
->>>>>>> 077959b0a2d901e2eba48ca6c584cf6340cf2bd4
     useEffect(() => {
     const fetchRecipe = async () => {
       try {
         let id=localStorage.getItem("recipeID");
-<<<<<<< HEAD
-
-=======
->>>>>>> 077959b0a2d901e2eba48ca6c584cf6340cf2bd4
         const response = await axios.get(`http://localhost:3000/api/recipes/singlerecipe?_id=${id}`);
         console.log(response.data);
 
