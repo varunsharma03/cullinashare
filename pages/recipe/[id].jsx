@@ -10,13 +10,7 @@ const Id = () => {
     const fetchRecipe = async () => {
       try {
         let id=localStorage.getItem("recipeID");
-<<<<<<< HEAD
         const response = await axios.get(`/api/recipes/singlerecipe?_id=${id}`);
-=======
-        const response = await axios.get(`api/recipes/singlerecipe?_id=${id}`);
-        console.log(response.data);
-
->>>>>>> 0ff976243abb14143718be09fe0c7dfefdfa8f7d
         setdata([response.data]);
         setstar(Array(response.data?.rating || 0).fill(''));
       } catch (error) {
