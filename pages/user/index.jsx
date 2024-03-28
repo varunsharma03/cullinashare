@@ -15,7 +15,7 @@ const Index = (props) => {
       window.alert("Please fill all the details");
     } else {
       try {
-        const response = await axios.post("http://localhost:3000/api/user/login", {
+        const response = await axios.post("api/user/login", {
           username,
           password,
         });
@@ -43,7 +43,7 @@ const Index = (props) => {
     {
         window.alert("Please Fill all the details")
     }else{
-        let url="http://localhost:3000/api/user"
+        let url="api/user"
         const response =axios.post(url,{name,username,password});
         if(response)
         {

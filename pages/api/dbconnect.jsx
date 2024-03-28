@@ -1,5 +1,4 @@
 import mongoose from "mongoose"
-// mongodb+srv://nagato3:abcd1234@cluster0.5uwzgpa.mongodb.net/cullina
 const dbconnect = mongoose.connect(`mongodb+srv://nagato3:abcd1234@cluster0.5uwzgpa.mongodb.net/cullina`).then(() => {
   console.log("Connected to MongoDB");
 }).catch((error) => {
