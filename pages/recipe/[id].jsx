@@ -6,24 +6,12 @@ import axios from "axios"
 const Id = () => {
     const [data,setdata]=useState([])
     const[star,setstar]=useState([]);
-<<<<<<< HEAD
-  
-=======
->>>>>>> 077959b0a2d901e2eba48ca6c584cf6340cf2bd4
     useEffect(() => {
     const fetchRecipe = async () => {
       try {
         let id=localStorage.getItem("recipeID");
-<<<<<<< HEAD
-
-=======
->>>>>>> 077959b0a2d901e2eba48ca6c584cf6340cf2bd4
-        const response = await axios.get(`http://localhost:3000/api/recipes/singlerecipe?_id=${id}`);
-        console.log(response.data);
-
+        const response = await axios.get(`/api/recipes/singlerecipe?_id=${id}`);
         setdata([response.data]);
-
-        // Create an array with the specified number of empty elements for star rating
         setstar(Array(response.data?.rating || 0).fill(''));
       } catch (error) {
         console.error('Error fetching recipe:', error);
@@ -38,9 +26,9 @@ const Id = () => {
             data.length>0?
       <div className='mx-auto p-4 w-[80%] rounded-md mt-10 '>
         {
-            data?.map((e)=>{
+            data?.map((e,index)=>{
                 return (
-                    <div key={e._id} className='grid grid-cols-12 max-[1037px]:grid-cols-7 '>
+                    <div key={index} className='grid grid-cols-12 max-[1037px]:grid-cols-7 '>
                         {/* photo */}
                         <div className='col-span-7  p-2 flex  justify-center'>
                             <img 
@@ -58,10 +46,10 @@ const Id = () => {
                             </div>
                             <div className='grid grid-cols-2 my-5'>
                                 {
-                                    e.ingredients?.map((ele)=>{
+                                    e.ingredients?.map((ele,index)=>{
                                         return <li
                                         className='font-semibold text-xl text-slate-500 '
-                                        key={ele}>
+                                        key={index}>
                                             {ele}
                                         </li>
                                     })
@@ -79,10 +67,10 @@ const Id = () => {
                                     
                                 <div className='grid grid-cols-5'>
                                     {/* stars */}
-                                {star.map((ele)=>{
+                                {star.map((ele,index)=>{
                                         return(
                                         <img
-                                        key={ele}
+                                        key={index}
                                         width={30}
                                         src='https://th.bing.com/th/id/R.a2cc496c524f6c5aad1e5f917a21f1da?rik=RgnfmPNhmD1Fww&riu=http%3a%2f%2fpluspng.com%2fimg-png%2fyellow-stars-png-hd-pictures-of-cartoon-stars-hd-wallpapers-lovely-8029.png&ehk=m0CtO8Pg61I%2b%2fYN2EGmzKTA62VKU%2fhObQR0rdbm%2fUCQ%3d&risl=&pid=ImgRaw&r=0'
                                         />

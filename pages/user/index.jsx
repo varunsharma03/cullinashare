@@ -19,12 +19,17 @@ const Index = (props) => {
           username,
           password,
         });
-  
-        if (response.status === 200) {
-          console.log(response, "sahi wla");
+        if (response.data.token) { 
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("loged", true);
           router.push('/');
+        }else{
+          window.alert("Invalid Credentials");
+          let x= document.querySelector('.username');
+          x.value="";
+          let y =document.querySelector('.password');
+          y.value=""
+
         } 
       } catch (error) {
         window.alert("An error occurred during login");
@@ -69,15 +74,15 @@ const Index = (props) => {
                     loginflag?
                     <input type="text" placeholder="Your Name"
                     onChange={(e)=>{setname(e.target.value)}}
-                    className=' p-3 m-2 rounded-xl text-lg font-semibold  text-slate-500 bg-slate-100'></input>:""
+                    className='  p-3 m-2 rounded-xl text-lg font-semibold  text-slate-500 bg-slate-100'></input>:""
                 
                 }
-                <input type='text' placeholder='Email...'
-                 className=' p-3 m-2 rounded-xl text-lg font-semibold  text-slate-500 bg-slate-100'
+                <input type='text' placeholder='username...'
+                 className='username p-3 m-2 rounded-xl text-lg font-semibold  text-slate-500 bg-slate-100'
                 onChange={(e)=>{seteusername(e.target.value)}}></input>
                 <input type='password' placeholder='password'
                 onChange={(e)=>{setpassword(e.target.value)}}
-                className=' p-3 m-2 rounded-xl text-lg font-semibold 
+                className='password p-3 m-2 rounded-xl text-lg font-semibold 
                 text-slate-500 bg-slate-100'></input>
                 {
                     loginflag?

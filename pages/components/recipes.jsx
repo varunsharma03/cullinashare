@@ -10,15 +10,24 @@ const Recipes = () => {
   const [filters, setfilters] = useState([]);
   const [filtersort, setfiltersort] = useState([]);
   const [filterdata, setfilterdata] = useState([]);
+  const [liked,setliked]=useState([]);
 
   async function handleLiked(_id) {
     if (localStorage.getItem('token')) {
-      let url = `http://localhost:3000/api/user?token=${localStorage.getItem('token')}`;
+      let url = `api/user?token=${localStorage.getItem('token')}`;
       const response = await axios.put(url, { recipe: _id });
-      console.log(response.data.response.liked);
+      getliked();
     } else {
       router.push('/user');
     }
+  }
+
+  async function getliked()
+  {
+    let token=localStorage.getItem("token");
+    const response  = await axios.post("/api/middleware",{token});
+    let x= response.data.data.map((e)=>e._id);
+    setliked(x)
   }
 
   function filterSorting() {
@@ -26,7 +35,6 @@ const Recipes = () => {
       setfilterdata(data);
     } else {
       const filter = data.filter((recipe) => filtersort.includes(recipe.categorie));
-      console.log('After filtering:', filter);
       setfilterdata(filter);
     }
   }
@@ -40,7 +48,7 @@ const Recipes = () => {
 
   const fetchdata = async () => {
     try {
-      let url = 'http://localhost:3000/api/recipes';
+      let url = 'api/recipes';
       const response = await axios.get(url);
       if (response.data.recipes) {
         setdata(response.data.recipes);
@@ -56,6 +64,7 @@ const Recipes = () => {
     let x = localStorage.getItem('loged');
     if (x === 'true') {
       setloginflag(false);
+      getliked();
     } else {
       setloginflag(true);
     }
@@ -71,7 +80,10 @@ const Recipes = () => {
       {data.length > 0 ? (
         <div>
           {/* Main header Section */}
-          <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-between pl-8 py-4 m-2 mr-0">
+          <div className=" grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 justify-between 
+          pl-8 py-4 m-2 mr-0
+          ">
+
             {/* Head */}
             <div className="col-span-full md:col-span-1 items-center mb-4 md:mb-0">
               <p className="text-4xl font-bold text-blue-500">
@@ -88,7 +100,7 @@ const Recipes = () => {
             </div>
 
             {/* Search bar */}
-            <div className="col-span-full md:col-span-1 flex justify-between mb-4 md:mb-0">
+            <div className="col-span-full md:col-span-1 flex w-[100%] my-2 mx-auto  justify-between mb-4 md:mt-8 md:w-[90%] lg-[100%]">
               <input
                 type="text"
                 placeholder="Search your Favourite Recipe..."
@@ -108,7 +120,7 @@ const Recipes = () => {
             </div>
 
             {/* Login & Logout */}
-            <div className="col-span-1 mt-4 md:mt-0">
+            <div className="col-span-1 mt-4 mx-auto   md:mt-3">
               {loginflag ? (
                 <div className="flex justify-center items-center gap-3">
                   <img
@@ -161,13 +173,14 @@ const Recipes = () => {
           {/* Recipes & Filter */}
           <div className="grid grid-cols-1 md:grid-cols-12">
             {/* Filter */}
-            <div className="col-span-3 p-3 mx-6 grid grid-cols-1">
+            <div className="col-span-3 p-3 mx-6 grid md:grid-cols-1
+            ">
               <div className="mt-6 mb-0">
-                {filters?.map((e) => {
+                {filters?.map((e,index) => {
                   return (
                     <div
-                      key={e}
-                      className="grid grid-cols-2 mr-1 text-sm sm:text-base items-center font-semibold m-3 sm:m-7"
+                      key={index}
+                      className="grid grid-cols-2 mr-1 md:gird-cols-1 text-sm sm:text-base items-center font-semibold m-3 sm:m-7"
                     >
                       <label className="col-span-1 text-lg sm:text-2xl font-semibold text-slate-700">
                         {e}
@@ -200,10 +213,10 @@ const Recipes = () => {
 
             {/* Recipes */}
             <div className="col-span-9 md:col-span-8 mr-3 p-3 mt-5 grid grid-cols-1 gap-8">
-              {(filterdata.length ? filterdata : data).map((e) => {
+              {(filterdata.length ? filterdata : data).map((e,index) => {
                 return (
                   <div
-                    key={e}
+                    key={index}
                     className="grid grid-cols-1 md:grid-cols-2 justify-between gap-8 border-b-2 p-7 border-slate-300"
                   >
                     {/* Img box */}
@@ -211,7 +224,7 @@ const Recipes = () => {
                       <img
                         alt="recipe-photo"
                         src={e?.url}
-                        className="rounded-lg w-full md:w-[400px] h-[300px] object-fit"
+                        className="rounded-lg w-[300px] mx-auto  md:w-[400px] h-[300px] object-fit"
                       ></img>
                     </div>
 
@@ -227,14 +240,14 @@ const Recipes = () => {
                       </div>
                       {e.ingredients?.length < 5 ? (
                         <div className="text-lg text-slate-700 mt-6 grid grid-cols-2">
-                          {e.ingredients.map((ing) => {
-                            return <li className="" key={ing}>{ing}</li>;
+                          {e.ingredients.map((ing,index) => {
+                            return <li className="" key={index}>{ing}</li>;
                           })}
                         </div>
                       ) : (
                         <div className="text-lg grid grid-cols-2 text-slate-700 mt-6">
-                          {e.ingredients?.slice(0, 4).map((ing) => {
-                            return <li key={ing}>{ing}</li>;
+                          {e.ingredients?.slice(0, 4).map((ing,index) => {
+                            return <li key={index}>{ing}</li>;
                           })}
                         </div>
                       )}
@@ -263,14 +276,35 @@ const Recipes = () => {
                           {e.nationality}
                         </p>
                       </div>
+                     <div>
+     {/* add to liked and show like or not logic */}
+                      {loginflag ?
                       <p
-                        className="text-thin mt-1 cursor-pointer"
-                        onClick={() => {
-                          handleLiked(e._id);
-                        }}
-                      >
-                        Add to Liked
-                      </p>
+                      className="text-thin mt-1 cursor-pointer"
+                      onClick={() => {
+                        handleLiked(e._id);
+                      }}>Add to Liked </p>
+                      :
+                      
+                      <div>
+                        {
+                          liked.includes(e._id)
+                          ?
+                          <p className='text-green-700 font-semibol text-md font-semibold '>Liked</p>
+                          :
+                          <p
+                          className="text-thin mt-1 cursor-pointer text-slate-700 font-semibold text-md"
+                          onClick={() => {
+                            handleLiked(e._id);
+                          }}
+                        >
+                          Add to Liked 
+                        </p>
+                        }
+                      </div>
+                      
+                      }
+                    </div>
                     </div>
                   </div>
                 );
@@ -288,7 +322,9 @@ const Recipes = () => {
             </div>
           </footer>
         </div>
-      ) : (
+      ) 
+      :
+      (
         <div className="loader mx-auto mt-[20%]"></div>
       )}
     </div>

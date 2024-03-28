@@ -9,7 +9,7 @@ const Liked = () => {
   async function fetch(){
     let token=localStorage.getItem("token");
     console.log(token)
-    const response  = await axios.post("http://localhost:3000/api/middleware",{token});
+    const response  = await axios.post("/api/middleware",{token});
 
     console.log(response.data.data)
     setdata(response.data.data);
@@ -19,7 +19,7 @@ const Liked = () => {
   {
     const token= localStorage.getItem("token");
     const recipe=_id
-    let url="http://localhost:3000/api/user/login";
+    let url="/api/user/login";
     const response= await axios.put(url,{token,recipe});
     if(response){
         router.reload();
