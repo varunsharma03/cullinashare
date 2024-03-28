@@ -8,14 +8,7 @@ const Liked = () => {
   const router= useRouter()
   async function fetch(){
     let token=localStorage.getItem("token");
-    console.log(token)
-<<<<<<< HEAD
     const response  = await axios.post("/api/middleware",{token});
-=======
-    const response  = await axios.post("api/middleware",{token});
->>>>>>> 0ff976243abb14143718be09fe0c7dfefdfa8f7d
-
-    console.log(response.data.data)
     setdata(response.data.data);
 
   }
@@ -23,11 +16,7 @@ const Liked = () => {
   {
     const token= localStorage.getItem("token");
     const recipe=_id
-<<<<<<< HEAD
     let url="/api/user/login";
-=======
-    let url="api/user/login";
->>>>>>> 0ff976243abb14143718be09fe0c7dfefdfa8f7d
     const response= await axios.put(url,{token,recipe});
     if(response){
         router.reload();
