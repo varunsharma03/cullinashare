@@ -14,7 +14,7 @@ const Recipes = () => {
 
   async function handleLiked(_id) {
     if (localStorage.getItem('token')) {
-      let url = `api/user?token=${localStorage.getItem('token')}`;
+      let url = `/api/user?token=${localStorage.getItem('token')}`;
       const response = await axios.put(url, { recipe: _id });
       getliked();
     } else {
