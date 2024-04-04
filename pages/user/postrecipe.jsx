@@ -28,7 +28,7 @@ const Postrecipe = () => {
   {
 
     name.toUpperCase();
-    const response= axios.post("api/recipes",{
+    const response= axios.post("/api/recipes",{
       ingredients,name,categorie,nationality,detail,url,by
     });
     if(response)
