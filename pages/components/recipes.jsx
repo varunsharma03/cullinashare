@@ -41,7 +41,7 @@ const Recipes = () => {
 
   function sortusingsearch() {
     const filteredRecipes = data.filter(
-      (recipe) => recipe.name === searchbar || recipe.name.split(' ')[0] === searchbar
+      (recipe) => recipe.name === searchbar.toLowerCase() || recipe.name.split(' ')[0] === searchbar.toLowerCase()
     );
     setfilterdata(filteredRecipes);
   }
