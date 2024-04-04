@@ -24,11 +24,11 @@ const Postrecipe = () => {
     let div = document.querySelector(".ing");
     div.insertBefore(x, div.lastChild);
   }
-  function postrecipe()
+  async function postrecipe()
   {
 
     name.toUpperCase();
-    const response= axios.post("/api/recipes",{
+    const response=await axios.post("/api/recipes",{
       ingredients,name,categorie,nationality,detail,url,by
     });
     if(response)
